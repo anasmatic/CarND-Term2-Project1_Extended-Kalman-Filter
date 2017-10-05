@@ -1,3 +1,10 @@
+#folders
+\build
+\buildbash
+\docs
+\data
+\ide_profiles
+
 # Compiled Object files
 *.slo
 *.lo
