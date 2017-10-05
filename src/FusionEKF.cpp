@@ -68,6 +68,8 @@ FusionEKF::FusionEKF() {
 	  0, 1, 0, 0,
 	  0, 0, 1000, 0,
 	  0, 0, 0, 1000;
+  
+  ekf_.Q_ = MatrixXd(4, 4);
 }
 
 /**
@@ -88,8 +90,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       * Remember: you'll need to convert radar from polar to cartesian coordinates.
     */
     // first measurement
-    
-	
     if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
       /**
       Convert radar from polar to cartesian coordinates and initialize state.
@@ -136,7 +136,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
   ekf_.F_(1, 3) = dt;
   
   //set the process covariance matrix Q
-  ekf_.Q_ = MatrixXd(4, 4);
+  
   ekf_.Q_ << (dt_4/4) * noise_ax,		0			, dt_3over2 * noise_ax	,		0				,
 					0			,(dt_4/4) * noise_ay,		0				, dt_3over2 * noise_ay,
 			dt_3over2 * noise_ax,		0			,	 dt_2*noise_ax		,		0				,
